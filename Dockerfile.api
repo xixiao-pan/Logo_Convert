@@ -1,0 +1,20 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
+COPY app.py .
+COPY utils.py .
+
+# Create necessary directories
+RUN mkdir -p /tmp/image_api_uploads /tmp/image_api_results/iterations /tmp/image_api_results/final_output
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the application
+CMD ["python", "app.py"]
